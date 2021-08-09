@@ -10,24 +10,25 @@ import {
   Post,
   Put,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from 'src/common/exceptions/http-exception.filter';
 import { PositiveIntPipe } from 'src/common/pipes/positiveInt.pipe';
+import { SuccessInterceptor } from 'src/common/interceptors/success.interceptor';
 
 @Controller('cats')
+@UseInterceptors(SuccessInterceptor)
 @UseFilters(HttpExceptionFilter)
 export class CatsController {
   constructor(private readonly CatsService: CatsService) {}
 
   @Get()
   getAllCat() {
-    throw new HttpException('api is broken', 401);
-    // return 'get all cat'
+    return { cats: 'get all cat' };
   }
 
   @Get(':id')
   getOneCat(@Param('id', ParseIntPipe, PositiveIntPipe) id: number) {
-    console.log(id);
     return 'one cat';
   }
 
