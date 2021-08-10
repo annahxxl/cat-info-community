@@ -4,6 +4,8 @@ import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/exceptions/http-exception.filter';
 
+declare const module: any;
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
@@ -22,7 +24,14 @@ async function bootstrap() {
     credentials: true,
   });
 
-  const PORT = process.env.PORT;
-  await app.listen(PORT);
+  const PORT = process.env.PORT || 4000;
+  await app.listen(PORT, () => {
+    console.log(`🚀 Listening on http://localhost:${PORT}/`);
+  });
+
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
 }
 bootstrap();
