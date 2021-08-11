@@ -5,7 +5,6 @@ import {
   Controller,
   Get,
   Post,
-  Req,
   UseFilters,
   UseGuards,
   UseInterceptors,
@@ -17,7 +16,6 @@ import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ReadOnlyCatDto } from './dto/cat.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginRequestDto } from 'src/auth/dto/login.request.dto';
-import { Request } from 'express';
 import { CurrentUser } from 'src/common/decorators/user.decorator';
 
 @Controller('cats')
