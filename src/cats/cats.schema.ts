@@ -28,7 +28,7 @@ export class Cat extends Document {
   @Prop({ required: true })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  password: string;
 
   @ApiProperty({
     description: 'name',
@@ -38,7 +38,7 @@ export class Cat extends Document {
   @Prop({ required: true })
   @IsString()
   @IsNotEmpty()
-  password: string;
+  name: string;
 
   @Prop({
     default:
@@ -65,7 +65,7 @@ _CatSchema.virtual('readOnlyData').get(function (this: Cat) {
     id: this.id,
     email: this.email,
     name: this.name,
-    imgUrl: this.imgUrl,
+    imgUrl: `https://cat-info-community.s3.ap-northeast-2.amazonaws.com/${this.imgUrl}`,
     comments: this.comments,
   };
 });
